@@ -1,23 +1,70 @@
 // src/services/api.js
-import axios from "axios";
+import { fetchAPI } from "./api_helper";
 
-const API_KEY = import.meta.env.VITE_API_KEY; // Replace with your RapidAPI key
-const BASE_URL = "https://sky-scrapper.p.rapidapi.com/api/v2";
+const BASE_URL = "https://sky-scrapper.p.rapidapi.com/api/v1/flights";
 
-const apiClient = axios.create({
-  baseURL: BASE_URL,
-  headers: {
-    "X-rapidapi-key": API_KEY,
-    "x-rapidapi-host": "sky-scrapper.p.rapidapi.com",
-  },
-});
+// Define the type for the parameters
+interface FlightParams {
+  originSkyId: string;
+  destinationSkyId: string;
+  originEntityId: string;
+  destinationEntityId: string;
+  date: string;
+  cabinClass: string;
+  adults: string;
+  childrens: string;
+}
 
-export const fetchFlights = async (params: any) => {
-  try {
-    const response = await apiClient.get("/flights", { params });
-    return response.data;
-  } catch (error) {
-    console.error("Error fetching flights:", error);
-    throw error;
-  }
+/**
+ * Fetch flights based on provided parameters
+ * @param {FlightParams} params - Query parameters (originSkyId, destinationSkyId, etc.)
+ */
+export const fetchFlights = async (params: FlightParams) => {
+  const {
+    originSkyId,
+    destinationSkyId,
+    originEntityId,
+    destinationEntityId,
+    date,
+    cabinClass,
+    adults,
+    childrens,
+  } = params;
+
+  const query = new URLSearchParams({
+    originSkyId,
+    destinationSkyId,
+    originEntityId,
+    destinationEntityId,
+    date,
+    cabinClass,
+    adults,
+    childrens,
+    sortBy: "best",
+    currency: "USD",
+    market: "en-US",
+    countryCode: "US",
+  });
+
+  const url = `${BASE_URL}/searchFlights?${query.toString()}`;
+  return await fetchAPI(url);
+};
+
+/**
+ * Fetch nearby airports based on latitude and longitude
+ * @param {string} lat - Latitude
+ * @param {string} lng - Longitude
+ */
+export const getNearbyAirports = async (lat: string, lng: string) => {
+  const url = `${BASE_URL}/getNearByAirports?lat=${lat}&lng=${lng}`;
+  return await fetchAPI(url);
+};
+
+/**
+ * Search airports by city or place name
+ * @param {string} query - Search query (city, address, place name, etc.)
+ */
+export const searchAirports = async (query: string) => {
+  const url = `${BASE_URL}/searchAirport?query=${query}`;
+  return await fetchAPI(url);
 };
