@@ -3,7 +3,6 @@ interface FlightCardProps {
 }
 
 const FlightCard: React.FC<FlightCardProps> = ({ flight }) => {
-  // Format the dates
   const departureDate = new Date(flight.legs[0].departure);
   const arrivalDate = new Date(flight.legs[0].arrival);
 
@@ -17,7 +16,6 @@ const FlightCard: React.FC<FlightCardProps> = ({ flight }) => {
     });
   const formatTime = (date: any) =>
     date.toLocaleTimeString(undefined, { hour: "2-digit", minute: "2-digit" });
-  // utils.js
   const formatDuration = (minutes: number) => {
     const hours = Math.floor(minutes / 60);
     const remainingMinutes = minutes % 60;
@@ -27,10 +25,7 @@ const FlightCard: React.FC<FlightCardProps> = ({ flight }) => {
   return (
     <div className="border border-gray-300 rounded-lg p-4 shadow-md max-w-screen-4xl mx-auto lg:flex lg:space-x-8 mb-4 lg:mb-8">
       <div className="lg:w-2/3">
-        {/* Date and Times */}
         <div className="flex justify-between text-xs lg:text-sm text-gray-500 mb-4">
-          {/* <div>Mon, Oct 14</div>
-          <div>Mon, Oct 14, 2024</div> */}
           <div>{formatDate(departureDate)}</div>
           <div>{formatDate(arrivalDate)}</div>
         </div>
@@ -44,7 +39,6 @@ const FlightCard: React.FC<FlightCardProps> = ({ flight }) => {
           </div>
         </div>
 
-        {/* Route Information */}
         <div className="flex items-center justify-between text-base lg:text-lg font-semibold text-gray-700 mb-2">
           <div>{flight.legs[0].origin.displayCode}</div>
           <div className="flex-grow border-t border-gray-300 mx-4"></div>
@@ -66,19 +60,14 @@ const FlightCard: React.FC<FlightCardProps> = ({ flight }) => {
         </div>
       </div>
 
-      {/* Price and Flight Miles */}
       <div className="lg:w-1/3 lg:border-l lg:border-gray-300 lg:pl-4">
         <div className="flex justify-between items-center mb-4 lg:block">
-          {/* Flight miles section */}
           <div className="flex items-center space-x-2 mb-4 lg:mb-2 ">
             <img
               src={flight.legs[0].carriers.marketing[0].logoUrl}
               alt="Flight miles icon"
               className="w-6 h-6 lg:h-12 lg:w-12"
             />
-            {/* <span className="text-xs lg:text-sm text-gray-600">
-              Earn Up to 100 miles
-            </span> */}
           </div>
 
           <div className="text-right">

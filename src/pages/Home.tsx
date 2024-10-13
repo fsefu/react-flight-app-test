@@ -1,4 +1,3 @@
-// src/pages/Home.jsx
 import SearchForm from "../components/SearchForm";
 
 const Home = () => {

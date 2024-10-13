@@ -1,3 +1,5 @@
+import axios from "axios";
+
 type FetchOptions = {
   headers?: Record<string, string>;
 };
@@ -7,7 +9,7 @@ export const fetchAPI = async (
   options: FetchOptions = {}
 ): Promise<any> => {
   try {
-    const response = await fetch(url, {
+    const response = await axios.get(url, {
       ...options,
       headers: {
         "x-rapidapi-key": import.meta.env.VITE_API_KEY,
@@ -17,12 +19,7 @@ export const fetchAPI = async (
       },
     });
 
-    if (!response.ok) {
-      throw new Error(`Error: ${response.status} ${response.statusText}`);
-    }
-
-    const data = await response.json();
-    return data;
+    return response.data;
   } catch (error) {
     console.error("API fetch error:", error);
     throw error;
