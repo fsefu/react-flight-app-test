@@ -19,7 +19,7 @@ const SearchForm = () => {
   const [destinationEntityId, setDestinationEntityId] = useState("");
   const [flights, setFlights] = useState<any>({});
   // Function to fetch airport suggestions for 'From'
-  const handleFromSearch = async (query) => {
+  const handleFromSearch = async (query: any) => {
     if (query.length > 2) {
       setFromLoading(true); // Show loading state
       try {
@@ -36,7 +36,7 @@ const SearchForm = () => {
   };
 
   // Function to fetch airport suggestions for 'To'
-  const handleToSearch = async (query) => {
+  const handleToSearch = async (query: any) => {
     if (query.length > 2) {
       setToLoading(true); // Show loading state
       try {
@@ -76,7 +76,7 @@ const SearchForm = () => {
     e.preventDefault();
 
     try {
-      const params = {
+      const params: any = {
         originSkyId: originSkyId,
         destinationSkyId: destinationSkyId,
         originEntityId: originEntityId,
@@ -118,7 +118,7 @@ const SearchForm = () => {
               <li className="px-4 py-2 hover:bg-gray-200">please wait...</li>
             ) : (
               fromLocations.length > 0 &&
-              fromLocations.map((location) => (
+              fromLocations.map((location: any) => (
                 <li
                   key={location.skyId}
                   className="px-4 py-2 hover:bg-gray-200 cursor-pointer"
