@@ -1,5 +1,4 @@
 import { BrowserRouter as Router } from "react-router-dom";
-import Home from "./pages/Home";
 import Header from "./components/Header";
 import AppRouter from "./router";
 // import Footer from "./components/Footer";

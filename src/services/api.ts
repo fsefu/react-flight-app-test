@@ -51,16 +51,6 @@ export const fetchFlights = async (params: FlightParams) => {
 };
 
 /**
- * Fetch nearby airports based on latitude and longitude
- * @param {string} lat - Latitude
- * @param {string} lng - Longitude
- */
-export const getNearbyAirports = async (lat: string, lng: string) => {
-  const url = `${BASE_URL}/getNearByAirports?lat=${lat}&lng=${lng}`;
-  return await fetchAPI(url);
-};
-
-/**
  * Search airports by city or place name
  * @param {string} query - Search query (city, address, place name, etc.)
  */
